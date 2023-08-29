@@ -13,31 +13,23 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DemoMessageListener extends AbstractMessageListener{
+public class ErreurMessageListener extends AbstractMessageListener{
 
-    private static final Logger logger = LoggerFactory.getLogger(DemoMessageListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(ErreurMessageListener.class);
 
-    public DemoMessageListener(RabbitTemplate rabbitTemplate) {
+    public ErreurMessageListener(RabbitTemplate rabbitTemplate) {
         super(rabbitTemplate);
     }
 
     @RabbitListener(
-        queues = AmqpDemoMessageConfiguration.DEMO_QUEUE_NAME,
+        queues = AmqpDemoMessageConfiguration.ERREUR_QUEUE_NAME,
         containerFactory = "rabbitListenerBizContainerFactory",
         concurrency = "3-10")
     public void onMessage(@Payload DemoDTO dto)  {
 
         try {
             // TODO traitement du message...
-            logger.info("TENANT {} : {}", TenantContext.getCurrentTenant(), dto.toString());
-            dto.setEssais(dto.getEssais() + 1);
-            if (dto.isErreur()){
-                if (dto.getEssais() < 3){
-                    this.convertAndSend(AmqpDemoMessageConfiguration.RETRY_EXCHANGE_NAME, "", dto);
-                } else {
-                    this.convertAndSend(AmqpDemoMessageConfiguration.ERREUR_EXCHANGE_NAME, "", dto);
-                }
-            }
+            logger.info("ERREUR !!!!! - TENANT {} : {}", TenantContext.getCurrentTenant(), dto.toString());
 
         } catch (Exception ex) {
             // pour éviter requeing auto en cas d'erreur

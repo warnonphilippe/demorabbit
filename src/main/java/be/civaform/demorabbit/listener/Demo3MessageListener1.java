@@ -2,7 +2,8 @@ package be.civaform.demorabbit.listener;
 
 
 import be.civaform.demorabbit.TenantContext;
-import be.civaform.demorabbit.config.AmqpDemoMessageConfiguration;
+import be.civaform.demorabbit.config.AmqpDemo2MessageConfiguration;
+import be.civaform.demorabbit.config.AmqpDemo3MessageConfiguration;
 import be.civaform.demorabbit.dto.DemoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,31 +14,24 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DemoMessageListener extends AbstractMessageListener{
+public class Demo3MessageListener1 extends AbstractMessageListener{
 
-    private static final Logger logger = LoggerFactory.getLogger(DemoMessageListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(Demo3MessageListener1.class);
 
-    public DemoMessageListener(RabbitTemplate rabbitTemplate) {
+    public Demo3MessageListener1(RabbitTemplate rabbitTemplate) {
         super(rabbitTemplate);
     }
 
     @RabbitListener(
-        queues = AmqpDemoMessageConfiguration.DEMO_QUEUE_NAME,
+        queues = AmqpDemo3MessageConfiguration.DEMO3_QUEUE_NAME1,
         containerFactory = "rabbitListenerBizContainerFactory",
         concurrency = "3-10")
     public void onMessage(@Payload DemoDTO dto)  {
 
         try {
             // TODO traitement du message...
-            logger.info("TENANT {} : {}", TenantContext.getCurrentTenant(), dto.toString());
-            dto.setEssais(dto.getEssais() + 1);
-            if (dto.isErreur()){
-                if (dto.getEssais() < 3){
-                    this.convertAndSend(AmqpDemoMessageConfiguration.RETRY_EXCHANGE_NAME, "", dto);
-                } else {
-                    this.convertAndSend(AmqpDemoMessageConfiguration.ERREUR_EXCHANGE_NAME, "", dto);
-                }
-            }
+            logger.info("KEY {} - TENANT {} : {}", "UN", TenantContext.getCurrentTenant(), dto.toString());
+
 
         } catch (Exception ex) {
             // pour éviter requeing auto en cas d'erreur

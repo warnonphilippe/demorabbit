@@ -21,8 +21,9 @@ import java.util.Arrays;
 
         @Override
         public void run(String... args) throws Exception {
-            //testDemo();
-            testDemo2();
+            testDemo();
+            //testDemo2();
+            //testDemo3();
         }
 
         private void testDemo(){
@@ -43,6 +44,7 @@ import java.util.Arrays;
             // simulation d'envois de message pour le tenant jhipster2
             TenantContext.setCurrentTenant("jhipster2");
             DemoDTO dto5 = createDemoDTO(5);
+            dto5.setErreur(true);
             producer.envoyerMessageDemo(dto5);
         }
 
@@ -65,6 +67,38 @@ import java.util.Arrays;
         TenantContext.setCurrentTenant("jhipster2");
         DemoDTO dto5 = createDemoDTO(5);
         producer.envoyerMessageDemo2(dto5);
+    }
+
+    private void testDemo3(){
+        TenantContext.setCurrentApplication("testapp");
+        TenantContext.setCurrentTenant("jhipster");
+
+        Arrays.asList(1, 2).stream()
+                .map(i -> createDemoDTO(i))
+                .forEach(dto -> {
+                            try {
+                                producer.envoyerMessageDemo3Key1(dto);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                );
+
+        Arrays.asList(3, 4).stream()
+                .map(i -> createDemoDTO(i))
+                .forEach(dto -> {
+                            try {
+                                producer.envoyerMessageDemo3Key2(dto);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                );
+
+        // simulation d'envois de message pour le tenant jhipster2
+        TenantContext.setCurrentTenant("jhipster2");
+        DemoDTO dto5 = createDemoDTO(5);
+        producer.envoyerMessageDemo3BadKey(dto5);
     }
 
         private DemoDTO createDemoDTO(int idx){
