@@ -2,6 +2,7 @@ package be.civaform.demorabbit.listener;
 
 
 import be.civaform.demorabbit.TenantContext;
+import be.civaform.demorabbit.config.AmqpDemo2MessageConfiguration;
 import be.civaform.demorabbit.config.AmqpDemoMessageConfiguration;
 import be.civaform.demorabbit.dto.DemoDTO;
 import org.slf4j.Logger;
@@ -13,23 +14,23 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DemoMessageListener extends AbstractMessageListener{
+public class Demo2MessageListener1 extends AbstractMessageListener{
 
-    private static final Logger logger = LoggerFactory.getLogger(DemoMessageListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(Demo2MessageListener1.class);
 
-    public DemoMessageListener(RabbitTemplate rabbitTemplate) {
+    public Demo2MessageListener1(RabbitTemplate rabbitTemplate) {
         super(rabbitTemplate);
     }
 
     @RabbitListener(
-        queues = AmqpDemoMessageConfiguration.DEMO_QUEUE_NAME,
+        queues = AmqpDemo2MessageConfiguration.DEMO2_QUEUE_NAME1,
         containerFactory = "rabbitListenerBizContainerFactory",
         concurrency = "3-10")
     public void onMessage(@Payload DemoDTO dto)  {
 
         try {
             // TODO traitement du message...
-            logger.info("TENANT {} : {}", TenantContext.getCurrentTenant(), dto.toString());
+            logger.info("LISTENER {} - TENANT {} : {}", "UN", TenantContext.getCurrentTenant(), dto.toString());
 
 
         } catch (Exception ex) {

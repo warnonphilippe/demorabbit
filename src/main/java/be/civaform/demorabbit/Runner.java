@@ -21,7 +21,8 @@ import java.util.Arrays;
 
         @Override
         public void run(String... args) throws Exception {
-            testDemo();
+            //testDemo();
+            testDemo2();
         }
 
         private void testDemo(){
@@ -44,6 +45,27 @@ import java.util.Arrays;
             DemoDTO dto5 = createDemoDTO(5);
             producer.envoyerMessageDemo(dto5);
         }
+
+    private void testDemo2(){
+        TenantContext.setCurrentApplication("testapp");
+        TenantContext.setCurrentTenant("jhipster");
+
+        Arrays.asList(1, 2, 3, 4).stream()
+                .map(i -> createDemoDTO(i))
+                .forEach(dto -> {
+                            try {
+                                producer.envoyerMessageDemo2(dto);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                );
+
+        // simulation d'envois de message pour le tenant jhipster2
+        TenantContext.setCurrentTenant("jhipster2");
+        DemoDTO dto5 = createDemoDTO(5);
+        producer.envoyerMessageDemo2(dto5);
+    }
 
         private DemoDTO createDemoDTO(int idx){
             return new DemoDTO(idx, "Message nr " + idx);

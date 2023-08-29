@@ -1,5 +1,6 @@
 package be.civaform.demorabbit.producer;
 
+import be.civaform.demorabbit.config.AmqpDemo2MessageConfiguration;
 import be.civaform.demorabbit.config.AmqpDemoMessageConfiguration;
 import be.civaform.demorabbit.dto.DemoDTO;
 import org.slf4j.Logger;
@@ -19,6 +20,11 @@ public class MessageSender extends AbstractMessageSender{
     public void envoyerMessageDemo(DemoDTO demoDTO) {
 
         this.convertAndSend(AmqpDemoMessageConfiguration.DEMO_EXCHANGE_NAME, "", demoDTO);
+    }
+
+    public void envoyerMessageDemo2(DemoDTO demoDTO) {
+
+        this.convertAndSend(AmqpDemo2MessageConfiguration.DEMO2_EXCHANGE_NAME, "", demoDTO);
     }
 
 }
