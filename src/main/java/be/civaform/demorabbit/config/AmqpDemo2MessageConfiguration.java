@@ -12,6 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmqpDemo2MessageConfiguration {
 
+/**
+ * Définition d'un exchange fanout et de 2 queues associées qui recevront chacune les messages
+ **/
+
+
     public static final String DEMO2_QUEUE_NAME1 = "demo2_queue1";
     public static final String DEMO2_QUEUE_NAME2 = "demo2_queue2";
     public static final String DEMO2_EXCHANGE_NAME = "demo2_exchange";
