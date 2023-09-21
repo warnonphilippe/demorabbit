@@ -15,7 +15,6 @@ import java.util.Map;
 @Configuration
 public class AmqpDemoMessageConfiguration {
 
-    // Exchange et queue pour le traitement des demandes de webhook (on dispose déjà des infos RingRing)
     public static final String DEMO_QUEUE_NAME = "demo_queue";
     public static final String DEMO_EXCHANGE_NAME = "demo_exchange";
 
