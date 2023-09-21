@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmqpDemo3MessageConfiguration {
 
+/**
+ * Définition d'un exchange topic et de 2 queues associées qui recevront les messages dont la routing key correspond à condition de routage définie par leur binding avec l'exchange
+ **/
+
     public static final String DEMO3_QUEUE_NAME1 = "demo3_queue1";
     public static final String DEMO3_QUEUE_NAME2 = "demo3_queue2";
     public static final String DEMO3_EXCHANGE_NAME = "demo3_exchange-topic";
