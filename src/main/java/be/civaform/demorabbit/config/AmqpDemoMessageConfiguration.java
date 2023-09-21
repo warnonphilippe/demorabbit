@@ -15,6 +15,12 @@ import java.util.Map;
 @Configuration
 public class AmqpDemoMessageConfiguration {
 
+/**
+ * Définition d'un exchange et d'une queue liée à cet exchange
+ * Définition d'un exchange destiné à recevoir les messages en erreur et d'une queue associée qui remettre les messages sur l'exchange d'origine après un délai d'attente
+ * Définition d'un exchange (et de sa queue associée) destiné à recevoir les messages en erreurs ne devant plus être réessayé
+ **/
+    
     public static final String DEMO_QUEUE_NAME = "demo_queue";
     public static final String DEMO_EXCHANGE_NAME = "demo_exchange";
 
