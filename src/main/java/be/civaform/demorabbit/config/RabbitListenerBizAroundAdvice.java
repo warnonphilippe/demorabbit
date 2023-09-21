@@ -19,6 +19,8 @@ public class RabbitListenerBizAroundAdvice implements MethodInterceptor {
 
         Message message = (Message) invocation.getArguments()[1];
 
+        // permet de garnir le contexte courant avec des propriétés transmises en header de chaque message
+        
         String tenant = (String) message.getMessageProperties().getHeaders().get(AmqpBizConfiguration.TENANT_PROPERTY);
         log.debug("Tenant in Message header is {}", tenant);
         TenantContext.setCurrentTenant(tenant);
