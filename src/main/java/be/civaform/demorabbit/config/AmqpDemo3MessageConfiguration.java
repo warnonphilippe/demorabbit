@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmqpDemo3MessageConfiguration {
 
-    // Exchange et queue pour le traitement des demandes de webhook (on dispose déjà des infos RingRing)
     public static final String DEMO3_QUEUE_NAME1 = "demo3_queue1";
     public static final String DEMO3_QUEUE_NAME2 = "demo3_queue2";
     public static final String DEMO3_EXCHANGE_NAME = "demo3_exchange-topic";
